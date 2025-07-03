@@ -24,4 +24,10 @@ class Sale(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
 
     def claculate_total_price(self):
-        self.total_price = self.amount * self.product.export_price
+        if self.product.export_price:
+            self.total_price = self.amount * self.product.export_price
+        else:
+            self.total_price = 0
+
+    def save(self, *args, **kwargs):
+        self.claculate_total_price()
