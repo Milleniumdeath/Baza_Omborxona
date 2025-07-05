@@ -35,7 +35,9 @@
                             <th scope="col" style="text-align: center;">Do'kon nomi</th>
                             <th scope="col" style="text-align: center;">Telefon raqami</th>
                             <th scope="col" style="text-align: center;">Manzili</th>
-                            <th scope="col" style="text-align: center;"></th>
+                            <th scope="col" style="text-align: center;">Qarzi</th>
+                            <th scope="col" style="text-align: center;">Sanasi</th>
+                            <th scope="col" style="text-align: center;">Brandi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +78,7 @@
           </div>
     
           <!-- Modal body -->
-          <form action="#" id="new-product-form" >
+          <form method="post" id="new-product-form" >
             {% csrf_token %}
             <div class="modal-body">
               <label for="new-product-name">FIO:</label>
@@ -92,7 +94,7 @@
               <input type="text" name="address" placeholder="Mijoz manzili..." id="new-product-address" class="form-control" required>
               <br>
               <label for="new-product-debt">Qarzi: (so'm)</label>
-              <input type="number" name="debt" placeholder="Mijozning qarzi" id="new-product-debt" class="form-control" required>
+              <input type="number" name="debt" placeholder="Mijozning qarzi" id="new-product-debt" class="form-control" >
               <br>
               <label for="new-product-brand">Brandi:</label>
               <input type="text" name="brand" placeholder="Mahsulotining brendi" id="new-product-brand" class="form-control" required>

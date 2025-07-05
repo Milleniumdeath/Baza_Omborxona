@@ -71,8 +71,8 @@ class CustomerView(View):
 
         return render(request, 'customers.html', context)
 
-    def post(self, request, pk):
-        Products.objects.create(
+    def post(self, request):
+        Customer.objects.create(
             name=request.POST.get('name'),
             shop_name=request.POST.get('shop_name'),
             phone_number=request.POST.get('phone_number'),
@@ -81,4 +81,4 @@ class CustomerView(View):
             brand=request.POST.get('brand'),
             created_at=datetime.now(),
         )
-        return redirect('products')
+        return redirect('customers')
