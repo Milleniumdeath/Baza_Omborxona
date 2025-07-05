@@ -15,9 +15,9 @@ class Products(models.Model):
     export_price = models.FloatField(validators=[MinValueValidator(0.0)], blank=True, null=True)
     amount = models.FloatField(validators=[MinValueValidator(0.0)])
     unit = models.CharField(max_length=255, blank=True, null=True)
-    crated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
     def __str__(self):
         return self.name
 
@@ -27,6 +27,7 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=13, blank=True, null=True)
     address = models.TextField()
     debt = models.FloatField(validators=[MinValueValidator(0.0)], default=0)
-    crated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     brand = models.CharField(max_length=255, blank=True, null=True)
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
 

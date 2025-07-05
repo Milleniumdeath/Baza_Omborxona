@@ -1,0 +1,69 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" style="padding: 20px ">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Mahsulotlar</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Chiqish</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+
+          <!-- Modal Header -->
+
+          <!-- Modal body -->
+          <form method="post" id="edit-product-form">
+              {% csrf_token %}
+              <label for="new-product-name">Nom:</label>
+              <input type="text" name="name" value="{{ product.name }}" id="new-product-name" class="form-control" required>
+              <br>
+              <label for="new-product-brend">Brend:</label>
+              <input type="text" name="brand" {% if product.brand %} value="{{ product.brand }}" {% endif%} id="new-product-brend" class="form-control" >
+              <br>
+              <label for="new-product-price-1">Sotib olish(so'm):</label>
+              <input type="text" name="import_price" value="{{ product.import_price }}" id="new-product-price-1" class="form-control" required>
+              <br>
+              <label for="new-product-price-2">Sotish(so'm):</label>
+              <input type="text" name="export_price" placeholder="Mavjud emas!" value="{{ product.export_price }}" id="new-product-price-2" class="form-control" required>
+              <br>
+              <label for="new-product-amount">Miqdor:</label>
+              <input type="number" name="amount" value="{{ product.amount }}" id="new-product-amount" class="form-control" required>
+              <br>
+              <label for="new-product-unit">O'lchov:</label>
+              <input type="text" name="unit" value="{{ product.unit }}" id="new-product-unit" class="form-control" required>
+              <br>
+
+          <!-- Modal footer -->
+            <button type="submit" class="btn btn-success">Tasdiqlash</button>
+            <a href="{% url 'products'%}">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Bekor qilish</button>
+            </a>
+
+      </form>
+  </div>
+</div>
+
+
+
+{%endblock%}
