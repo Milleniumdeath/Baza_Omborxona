@@ -62,18 +62,18 @@
 	<header>
 		<h1>Sections</h1>
 		<nav>
-			<a href="#">Mahsulotlar</a>
-			<a href="#">Mijozlar</a>
+			<a href="{% url 'products'%}">Mahsulotlar</a>
+			<a href="{% url 'customers'%}">Mijozlar</a>
 			<a href="#">Sotuvlar</a>
-			<a href="{% url 'admin'%}">Admin</a>
+			<a href="/admin/">Admin</a>
 		</nav>
 	</header>
 	<main>
 		<div class="button-container">
-			<a href="#" class="button">Products</a>
-			<a href="#" class="button">Clients</a>
+			<a href="{% url 'products'%}" class="button">Products</a>
+			<a href="{% url 'customers'%}" class="button">Clients</a>
 			<a href="#" class="button">Statistics</a>
-			<a href="#" class="button">Admin</a>
+			<a href="/admin/" class="button">Admin</a>
 		</div>
 	</main>
 </body>
