@@ -4,9 +4,15 @@ from django.views import View
 from datetime import datetime
 from .models import *
 
-class HomeView(LoginRequiredMixin, View):
+class HomeView( View):
+
     def get(self, request):
-        return render(request, 'sections.html')
+        if request.user.is_authenticated:
+            return render(request, 'sections.html')
+        return redirect('login')
+
+def get_home(request):
+    return redirect('home')
 
 class ProductsView(LoginRequiredMixin, View):
     def get(self, request):
