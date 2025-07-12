@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
@@ -67,5 +69,35 @@ class SalesView(LoginRequiredMixin , View):
         customer.save()
 
         return self.get(request)
+
+class ImportProductsView(LoginRequiredMixin, View):
+    def get(self, request):
+        import_products = IncomeProduct.objects.filter(branch=request.user.branch).order_by('-created_at')
+        products = Products.objects.filter(branch=request.user.branch).order_by('name')
+        context = {
+            'import_products': import_products,
+            'products': products,
+        }
+        return  render(request, 'import_products.html', context)
+
+    def post(self, request):
+        product = get_object_or_404(Products, id=request.POST['product_id'])
+        amount = float(request.POST['amount'])
+        import_price = float(request.POST.get('import_price'))
+
+        IncomeProduct.objects.create(
+            product=product,
+            amount=amount,
+            import_price=import_price,
+            user=request.user,
+            branch=request.user.branch,
+        )
+
+        product.amount += amount
+        product.import_price = import_price
+        product.updated_at = datetime.now()
+        product.save()
+        return self.get(request)
+
 
 

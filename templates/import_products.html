@@ -1,0 +1,109 @@
+{% extends 'base.html'%}
+{% block import_products_active%} active {% endblock %}
+{% block content %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Kirimlar</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'logout'%}">Chiqish</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div class="col-md-12">
+        <div class="card card-dark">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Kirim qo'shish</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table" style="text-align: center;">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 15px">T/r</th>
+                            <th scope="col" style="width: 255px; text-align: center;">Nom,  Brand</th>
+                            <th scope="col" style="text-align: center;">Keldi</th>
+                            <th scope="col" style="text-align: center;">Mavjud</th>
+                            <th scope="col" style="text-align: center;">Sotib olish</th>
+                            <th scope="col" style="text-align: center;">Sana</th>
+                            <th scope="col" style="text-align: center;">Xodim</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for import_product in import_products %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter}}</th>
+                            <td>{{import_product.product.name}}, {{import_product.product.brand}} </td>
+                            <td>{{import_product.amount}} {{import_product.product.unit}}</td>
+                            <td>{{import_product.product.amount}}</td>
+                            <td>{{import_product.import_price}}</td>
+                            <td>{{import_product.created_at|date:"d.m.Y "}}</td>
+                            <td>{{import_product.user.get_full_name}}</td>
+                            <td>
+                                <a href="#">
+                                    <button type="submit" class="btn btn-warning" data-toggle="modal">Tahrirlash</button>
+                                </a>
+                                <a href="#">
+                                    <button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header bg-dark">
+            <h4 class="modal-title">Yangi kirim</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+    
+          <!-- Modal body -->
+          <form id="new-product-form" method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+              <label >Mahsulot:</label>
+              <select name="product_id" class="form-control">
+                  {% for product in products%}
+                    <option value="{{ product.id}}">{{ product.name}}, {{ product.brand}} [{{product.export_price}}]</option>
+                  {% endfor%}
+              </select>
+              <label >Miqdor</label>
+              <input type="number" name="amount" placeholder="Kirim miqdori..."  class="form-control" required>
+              <br>
+              <label >Sotib olish</label>
+              <input type="number" name="import_price" placeholder="Sotib olish narxi..."  class="form-control" >
+              <br>
+            </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Qo`shish</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+        </div>
+      </form>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

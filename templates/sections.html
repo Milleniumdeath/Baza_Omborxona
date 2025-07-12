@@ -1,79 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
-	<title>Sections</title>
+	<meta charset="UTF-8">
+	<title>📂 Sections</title>
 	<style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
 
-		header{
+		body {
+			background: linear-gradient(135deg, #f8f9fb, #e3e5f0);
+		}
+
+		header {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			padding: 10px 40px;
-			background-color: #353942;
+			padding: 15px 40px;
+			background-color: #2c2f38;
 			color: #fff;
+			box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 		}
-		.button-container{
-			padding: 0 5.1vw;
+
+		header h1 {
+			font-size: 28px;
+		}
+
+		nav {
 			display: flex;
-            flex-wrap: wrap;
+			gap: 30px;
+		}
+
+		nav a {
+			color: #ffffff;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 16px;
+			transition: color 0.3s ease;
+		}
+
+		nav a:hover {
+			color: #8fd694;
+		}
+
+		.button-container {
+			padding: 40px 5vw;
+			display: flex;
+			flex-wrap: wrap;
 			justify-content: center;
 			align-items: center;
-			height: 400px;
+			min-height: 80vh;
+			gap: 30px;
 		}
-        
-		.button{
-			width: 30vw;
-			height: 15vh;
-			background-color: #353942;
+
+		.button {
+			width: 250px;
+			height: 120px;
+			background-color: #2c2f38;
 			color: #fff;
-			font-size: 24px;
-			margin: 100px 30px 20px 30px;
-			border-radius: 10px;
+			font-size: 22px;
+			font-weight: 500;
+			border-radius: 16px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			text-decoration: none;
+			transition: all 0.3s ease;
+			box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 		}
 
-        .button:hover {
-            box-shadow: 0 0 15px 3px #bec2cc;
-            color: #353942;
-            background-color: #fff;
-            border: 1px solid #353942;
-        }
-
-        nav {
-            display: flex;
-            gap: 50px;
-        }
-
-        a {
-            text-decoration: none;
-            color: white;
-        }
+		.button:hover {
+			box-shadow: 0 0 15px 4px #8fd694;
+			color: #2c2f38;
+			background-color: #ffffff;
+			border: 2px solid #2c2f38;
+		}
 	</style>
 </head>
 <body>
 	<header>
-		<h1>Sections</h1>
+		<h1>📁 Bo'limlar</h1>
 		<nav>
-			<a href="{% url 'products'%}">Mahsulotlar</a>
-			<a href="{% url 'customers'%}">Mijozlar</a>
-			<a href="{% url 'sales'%}">Sotuvlar</a>
-			<a href="/admin/">Admin</a>
+			{% if not request.user.is_superuser %}
+				<a href="{% url 'products' %}">🛒 Mahsulotlar</a>
+				<a href="{% url 'customers' %}">👥 Mijozlar</a>
+				<a href="{% url 'sales' %}">💰 Sotuvlar</a>
+			{% else%}
+				<a href="/admin/">⚙️ Admin</a>
+			{% endif %}
 		</nav>
 	</header>
 	<main>
 		<div class="button-container">
-			<a href="{% url 'products'%}" class="button">Products</a>
-			<a href="{% url 'customers'%}" class="button">Clients</a>
-			<a href="#" class="button">Statistics</a>
-			<a href="/admin/" class="button">Admin</a>
+			{% if not request.user.is_superuser %}
+				<a href="{% url 'products' %}" class="button">🛍️ Products</a>
+				<a href="{% url 'customers' %}" class="button">👤 Clients</a>
+				<a href="{% url 'import-products' %}" class="button">📊 Statistics</a>
+			{%else%}
+				<a href="/admin/" class="button">🔐 Admin Panel</a>
+			{%endif%}
 		</div>
 	</main>
 </body>
